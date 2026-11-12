@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg-canvas: oklch(0.147 0.004 49.25); /* #0c0a09 stone-950 */
+  --bg-surface: oklch(0.216 0.006 56.04); /* #1c1917 stone-900 */
+  --bg-code: oklch(0.18 0.005 52.0); /* #141210 */
+  --border-subtle: oklch(0.268 0.007 34.3); /* #292524 stone-800 */
+  --text-primary: oklch(0.985 0.001 106.4); /* #fafaf9 stone-50 */
+  --text-secondary: oklch(0.869 0.005 56.3); /* #d6d3d1 stone-300 */
+  --text-muted: oklch(0.709 0.01 56.2); /* #a8a29e stone-400 */
+  --accent-primary: oklch(0.769 0.188 70.08); /* #f59e0b amber-500 */
+  --accent-soft: oklch(0.828 0.189 84.43); /* #fbbf24 amber-400 / amber-300 */
+  --status-success: oklch(0.765 0.177 163.2); /* #34d399 emerald-400 */
+  --status-doc: oklch(0.75 0.183 55.9); /* #fb923c orange-300 */
+  caret-color: #f59e0b;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #292524 #0c0a09;
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: #0c0a09;
+  color: #fafaf9;
+  overflow-x: hidden;
+  text-underline-offset: 4px;
+}
+
+/* Selección de texto y barra de desplazamiento del sistema tematizadas */
+::selection {
+  background-color: rgba(245, 158, 11, 0.25);
+  color: #fde68a;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c0a09;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #292524;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #44403c;
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#0c0a09"/>
+  <rect x="70" y="55" width="660" height="340" rx="14" fill="#141210" stroke="#292524" stroke-width="2"/>
+  <text x="100" y="98" fill="#fdba74" font-family="monospace" font-weight="bold" font-size="15">FASTAPI RESTFUL SERVICE // EN DOCUMENTACIÓN</text>
+
+  <!-- Endpoint badges -->
+  <rect x="100" y="122" width="600" height="46" rx="8" fill="#1c1917" stroke="#44403c"/>
+  <rect x="114" y="133" width="60" height="24" rx="4" fill="#d97706"/>
+  <text x="128" y="149" fill="#0c0a09" font-family="monospace" font-weight="bold" font-size="12">POST</text>
+  <text x="190" y="150" fill="#fafaf9" font-family="monospace" font-size="13">/api/v1/analytics/ingest</text>
+  <text x="580" y="150" fill="#fcd34d" font-family="monospace" font-size="12">201 Created</text>
+
+  <rect x="100" y="180" width="600" height="46" rx="8" fill="#1c1917" stroke="#44403c"/>
+  <rect x="114" y="191" width="60" height="24" rx="4" fill="#059669"/>
+  <text x="132" y="207" fill="#fafaf9" font-family="monospace" font-weight="bold" font-size="12">GET</text>
+  <text x="190" y="208" fill="#fafaf9" font-family="monospace" font-size="13">/api/v1/metrics/summary</text>
+  <text x="580" y="208" fill="#34d399" font-family="monospace" font-size="12">200 OK (8ms)</text>
+
+  <!-- JSON Payload preview -->
+  <rect x="100" y="242" width="600" height="122" rx="8" fill="#0c0a09" stroke="#292524"/>
+  <text x="120" y="268" fill="#a8a29e" font-family="monospace" font-size="12">{</text>
+  <text x="140" y="290" fill="#d6d3d1" font-family="monospace" font-size="12">"service": "DataPulse FastAPI Engine",</text>
+  <text x="140" y="312" fill="#d6d3d1" font-family="monospace" font-size="12">"validation": "Pydantic v2 + Async SQLAlchemy",</text>
+  <text x="140" y="334" fill="#fdba74" font-family="monospace" font-size="12">"status": "en_documentacion"</text>
+  <text x="120" y="354" fill="#a8a29e" font-family="monospace" font-size="12">}</text>
+</svg>

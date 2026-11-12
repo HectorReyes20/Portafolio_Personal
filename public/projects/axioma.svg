@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#0c0a09"/>
+  <!-- Contenedor principal de arquitectura -->
+  <rect x="55" y="45" width="690" height="360" rx="14" fill="#141210" stroke="#292524" stroke-width="2"/>
+  <rect x="55" y="45" width="690" height="40" rx="14" fill="#1c1917"/>
+  <circle cx="82" cy="65" r="5.5" fill="#57534e"/>
+  <circle cx="100" cy="65" r="5.5" fill="#57534e"/>
+  <circle cx="118" cy="65" r="5.5" fill="#57534e"/>
+  <text x="145" y="70" fill="#fafaf9" font-family="monospace" font-weight="bold" font-size="12">AXIOMA // ARQUITECTURA DE GESTIÓN CLÍNICA &amp; TELETERAPIA</text>
+
+  <!-- Capa 1: Portales Next.js 15 -->
+  <rect x="85" y="110" width="185" height="145" rx="10" fill="#1c1917" stroke="#44403c" stroke-opacity="0.9"/>
+  <text x="103" y="136" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="11">FRONTEND · NEXT.JS 15</text>
+  <text x="103" y="160" fill="#fafaf9" font-family="sans-serif" font-weight="bold" font-size="14">Doble Portal Web</text>
+  <text x="103" y="184" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Portal Paciente (Paquetes)</text>
+  <text x="103" y="204" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Panel Clínico &amp; Dirección</text>
+  <text x="103" y="224" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Evoluciones SOAP</text>
+  <text x="103" y="242" fill="#a8a29e" font-family="monospace" font-size="10">React 19 + TypeScript</text>
+
+  <!-- Capa 2: Backend NestJS 10 + ML -->
+  <rect x="305" y="110" width="190" height="145" rx="10" fill="#1c1917" stroke="#f59e0b" stroke-opacity="0.6"/>
+  <text x="323" y="136" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="11">BACKEND · NESTJS 10</text>
+  <text x="323" y="160" fill="#fafaf9" font-family="sans-serif" font-weight="bold" font-size="14">Reglas RN-01 a RN-54</text>
+  <text x="323" y="184" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Auth JWT + RBAC por rol</text>
+  <text x="323" y="204" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Agenda sin cruces horarios</text>
+  <text x="323" y="224" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Inferencia ML No-Show</text>
+  <text x="323" y="242" fill="#34d399" font-family="monospace" font-size="10">ROC-AUC 0.87 · 84.6% (1.5k sim.)</text>
+
+  <!-- Capa 3: PostgreSQL + Prisma -->
+  <rect x="530" y="110" width="185" height="145" rx="10" fill="#1c1917" stroke="#44403c" stroke-opacity="0.9"/>
+  <text x="548" y="136" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="11">DATOS · PRISMA &amp; PG</text>
+  <text x="548" y="160" fill="#fafaf9" font-family="sans-serif" font-weight="bold" font-size="14">Kardex Atómico</text>
+  <text x="548" y="184" fill="#d6d3d1" font-family="sans-serif" font-size="11">• PostgreSQL Relacional</text>
+  <text x="548" y="204" fill="#d6d3d1" font-family="sans-serif" font-size="11">• EVALUACIÓN vs TERAPIA</text>
+  <text x="548" y="224" fill="#d6d3d1" font-family="sans-serif" font-size="11">• Reversión auditada</text>
+  <text x="548" y="242" fill="#fcd34d" font-family="monospace" font-size="10">@@unique([citaId, tipo])</text>
+
+  <!-- Conectores -->
+  <line x1="270" y1="182" x2="305" y2="182" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4"/>
+  <line x1="495" y1="182" x2="530" y2="182" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4"/>
+
+  <!-- Barra inferior de evidencia técnica -->
+  <rect x="85" y="278" width="630" height="100" rx="10" fill="#0c0a09" stroke="#292524"/>
+  <text x="105" y="305" fill="#fbbf24" font-family="monospace" font-weight="bold" font-size="12">REGLA CRÍTICA DE INTEGRIDAD // KARDEX &amp; PREDICCIÓN DE INASISTENCIA</text>
+  <text x="105" y="330" fill="#d6d3d1" font-family="monospace" font-size="12">constraint: @@unique([citaId, tipo]) -&gt; Previene doble descuento de sesión</text>
+  <text x="105" y="354" fill="#34d399" font-family="monospace" font-size="12">ml_engine : Regresión Logística (1,500 hist. simulados) -&gt; ROC-AUC 0.87 · Acc 84.6%</text>
+</svg>
