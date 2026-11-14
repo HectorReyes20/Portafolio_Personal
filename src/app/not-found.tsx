@@ -1,33 +1,30 @@
 import React from "react";
 import Link from "next/link";
-import { ArrowLeft, Terminal } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex max-w-3xl flex-col items-center justify-center px-4 py-24 text-center sm:px-6">
-      <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400">
-        <Terminal className="h-7 w-7" />
-      </div>
-      <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-slate-100 sm:text-4xl">
+    <div className="mx-auto flex max-w-3xl flex-col items-start justify-center px-4 py-24 sm:px-6">
+      <p className="font-mono text-xs uppercase tracking-widest text-[#bef264]">
+        HTTP 404 // Ruta no disponible
+      </p>
+      <h1 className="mt-4 text-3xl font-semibold tracking-tight text-neutral-50 sm:text-5xl">
         Página o proyecto no encontrado
       </h1>
-      <p className="mt-2 font-mono text-xs font-semibold text-cyan-400">
-        HTTP 404 // RUTA NO DISPONIBLE
-      </p>
-      <p className="mt-3 max-w-md text-sm text-slate-300">
+      <p className="mt-4 max-w-md text-sm leading-relaxed text-neutral-300 sm:text-base">
         La ruta que intentas visitar no existe o fue movida. Puedes regresar al inicio o explorar el listado completo de casos de estudio.
       </p>
-      <div className="mt-8 flex flex-wrap justify-center gap-4">
+      <div className="mt-8 flex flex-wrap items-center gap-4">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 rounded-xl bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-400"
+          className="inline-flex items-center gap-2 rounded-full bg-[#bef264] px-5 py-2.5 text-sm font-semibold text-[#050505] transition-colors hover:bg-[#d9f99d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
           Volver al inicio
         </Link>
         <Link
           href="/proyectos"
-          className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-5 py-3 text-sm font-semibold text-slate-200 transition hover:border-cyan-500/40"
+          className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm font-medium text-neutral-200 transition-colors hover:border-[#bef264]/60 hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
         >
           Ver proyectos
         </Link>

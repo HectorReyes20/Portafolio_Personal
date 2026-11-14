@@ -9,18 +9,27 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#0c0a09",
-        surface: "#1c1917",
-        surfaceLight: "#292524",
+        background: "#050505",
+        surface: "#0a0a0a",
+        surfaceLight: "#141414",
         accent: {
-          amber: "#f59e0b",
-          amberSoft: "#fcd34d",
+          lime: "#bef264",
+          limeSoft: "#d9f99d",
           emerald: "#34d399",
           orange: "#fdba74",
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-archivo)", "system-ui", "sans-serif"],
+        mono: [
+          "var(--font-mono)",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "monospace",
+        ],
       },
       keyframes: {
         fadeUp: {

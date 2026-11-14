@@ -132,9 +132,9 @@ export const projectsData: Project[] = [
       "Python (ML)",
     ],
     role:
-      "Coautor del proyecto (junto a Hector Sebastian Reyes Fatama) para el curso Curso Integrador II. Participé en el diseño de la arquitectura full stack: frontend en Next.js 15 (App Router), backend en NestJS con JWT y RBAC, modelado de base de datos en PostgreSQL con Prisma, e implementación del módulo de Machine Learning (regresión logística) para predicción de inasistencias.",
+      "Coautor del proyecto (junto a Joao Moises Inga Gallo) para el curso Curso Integrador II. Participé en el diseño de la arquitectura full stack: frontend en Next.js 15 (App Router), backend en NestJS con JWT y RBAC, modelado de base de datos en PostgreSQL con Prisma, e implementación del módulo de Machine Learning (regresión logística) para predicción de inasistencias.",
     myRole:
-      "Coautor del proyecto (junto a Hector Sebastian Reyes Fatama) para el curso Curso Integrador II. Participé en el diseño de la arquitectura full stack: frontend en Next.js 15 (App Router), backend en NestJS con JWT y RBAC, modelado de base de datos en PostgreSQL con Prisma, e implementación del módulo de Machine Learning (regresión logística) para predicción de inasistencias.",
+      "Coautor del proyecto (junto a Joao Moises Inga Gallo) para el curso Curso Integrador II. Participé en el diseño de la arquitectura full stack: frontend en Next.js 15 (App Router), backend en NestJS con JWT y RBAC, modelado de base de datos en PostgreSQL con Prisma, e implementación del módulo de Machine Learning (regresión logística) para predicción de inasistencias.",
     challenges: [
       "Kardex de sesiones con deducción atómica: implementé el registro de consumo de sesiones con una restricción única @@unique([citaId, tipo]) en Prisma para evitar dobles descuentos, distinguiendo entre citas de EVALUACIÓN (no descuentan) y TERAPIA (sí descuentan), con reversión administrativa auditada.",
       "Predicción ML de No-Show en runtime: entrené una regresión logística multivariable (accuracy 84.6%, ROC-AUC 0.87) con 1,500 historiales simulados, exporté los coeficientes a JSON y los inferí en el backend NestJS en tiempo real para categorizar el riesgo del paciente (BAJO / MEDIO / ALTO).",
@@ -150,10 +150,10 @@ export const projectsData: Project[] = [
       "Motor ML de predicción de inasistencias (No-Show) en tiempo real",
       "Doble portal con seguridad JWT + RBAC y evoluciones clínicas SOAP",
     ],
-    repoUrl: "Repositorio privado por fines académicos",
-    githubUrl: "Repositorio privado por fines académicos",
-    demoUrl: "",
-    image: "/projects/axioma.svg",
+    repoUrl: "https://github.com/Spaurhu/axioma-centro-psicologico",
+    githubUrl: "https://github.com/Spaurhu/axioma-centro-psicologico",
+    demoUrl: "https://axioma-centro-psicologico-lktj.vercel.app/",
+    image: "/projects/axioma-dashboard.webp",
     featured: true,
     category: "Full Stack · Next.js 15 & NestJS",
     year: "2026",

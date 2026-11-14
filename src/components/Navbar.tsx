@@ -3,14 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Terminal, ArrowUpRight } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { profileData } from "@/data/portfolio";
+import Magnetic from "@/components/Magnetic";
 
 const navItems = [
-  { label: "Inicio", href: "/" },
-  { label: "Proyectos", href: "/proyectos" },
-  { label: "Sobre mí", href: "/sobre-mi" },
-  { label: "Contacto", href: "/contacto" },
+  { num: "01", label: "Inicio", href: "/" },
+  { num: "02", label: "Proyectos", href: "/proyectos" },
+  { num: "03", label: "Sobre mí", href: "/sobre-mi" },
+  { num: "04", label: "Contacto", href: "/contacto" },
 ];
 
 export default function Navbar() {
@@ -40,71 +41,74 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-stone-800/80 bg-stone-950/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#050505]/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-        {/* Logo / Marca personal */}
-        <Link
-          href="/"
-          className="group flex items-center gap-2.5 rounded-lg text-stone-50 transition hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-400 transition group-hover:border-amber-400 group-hover:bg-amber-500/20">
-            <Terminal className="h-5 w-5" />
-          </span>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold tracking-tight text-stone-50 sm:text-base">
-              {profileData.name}
-            </span>
-            <span className="font-mono text-[11px] font-medium text-stone-400">
-              Full Stack Dev
-            </span>
-          </div>
-        </Link>
+        {/* Marca personal tipográfica */}
+        <Magnetic>
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2.5 rounded-sm text-sm font-semibold tracking-tight text-neutral-50 transition-colors hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] sm:text-base"
+          >
+            <span
+              aria-hidden="true"
+              className="h-1.5 w-1.5 rounded-full bg-[#bef264] transition-transform duration-200 group-hover:scale-125 motion-reduce:transition-none"
+            />
+            <span>{profileData.name}</span>
+          </Link>
+        </Magnetic>
 
         {/* Navegación Desktop */}
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Principal">
-          {navItems.map((item) => {
+        <nav className="hidden items-center gap-6 md:flex" aria-label="Principal">
+          {navItems.slice(0, 3).map((item) => {
             const active = isActive(item.href);
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
-                className={`rounded-lg px-3.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                className={`rounded-sm py-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] ${
                   active
-                    ? "bg-amber-500/15 text-amber-300"
-                    : "text-stone-300 hover:bg-stone-900 hover:text-stone-50"
+                    ? "font-medium text-[#bef264]"
+                    : "text-neutral-300 hover:text-neutral-50"
                 }`}
               >
                 {item.label}
               </Link>
             );
           })}
-        </nav>
-
-        {/* Botón CTA Desktop */}
-        <div className="hidden items-center gap-3 md:flex">
           <a
             href={profileData.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded px-2 py-1 text-xs font-medium text-stone-300 transition hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+            className="inline-flex items-center gap-1 rounded-sm py-1 text-sm text-neutral-300 transition-colors hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
           >
             GitHub
-            <ArrowUpRight className="h-3.5 w-3.5" />
+            <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
           </a>
-          <Link
-            href="/contacto"
-            className="inline-flex items-center justify-center rounded-lg bg-amber-500 px-4 py-2 text-sm font-semibold text-stone-950 shadow-md shadow-amber-950/40 transition hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
-          >
-            Disponible
-          </Link>
+        </nav>
+
+        {/* CTA Desktop */}
+        <div className="hidden items-center md:flex">
+          <Magnetic>
+            <Link
+              href="/contacto"
+              aria-current={isActive("/contacto") ? "page" : undefined}
+              className={`inline-flex items-center justify-center rounded-full border px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] ${
+                isActive("/contacto")
+                  ? "border-[#bef264] bg-[#bef264] text-[#050505]"
+                  : "border-[#bef264]/60 text-[#bef264] hover:border-[#bef264] hover:bg-[#bef264] hover:text-[#050505]"
+              }`}
+            >
+              Contacto
+            </Link>
+          </Magnetic>
         </div>
 
-        {/* Botón Menú Móvil */}
+        {/* Botón Menú Móvil (44x44px) */}
         <button
           type="button"
           onClick={() => setMobileMenuOpen((prev) => !prev)}
-          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg border border-stone-800 p-2 text-stone-300 transition hover:border-stone-700 hover:bg-stone-900 hover:text-stone-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 md:hidden"
+          className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-full border border-white/15 text-neutral-200 transition-colors hover:border-[#bef264]/60 hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] md:hidden"
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-nav-menu"
           aria-label={
@@ -115,13 +119,13 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Menú Desplegable Móvil */}
+      {/* Menú Desplegable Móvil con secciones numeradas 01-04 */}
       {mobileMenuOpen && (
         <div
           id="mobile-nav-menu"
-          className="border-t border-stone-800/80 bg-stone-950/95 px-4 pb-6 pt-3 backdrop-blur-lg md:hidden"
+          className="border-t border-white/10 bg-[#050505] px-4 pb-6 pt-2 md:hidden"
         >
-          <nav className="flex flex-col space-y-1.5" aria-label="Móvil">
+          <nav className="flex flex-col divide-y divide-white/10" aria-label="Móvil">
             {navItems.map((item) => {
               const active = isActive(item.href);
               return (
@@ -130,25 +134,29 @@ export default function Navbar() {
                   href={item.href}
                   aria-current={active ? "page" : undefined}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-lg px-3.5 py-2.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 ${
+                  className={`flex items-baseline justify-between py-3.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] ${
                     active
-                      ? "bg-amber-500/15 text-amber-300"
-                      : "text-stone-300 hover:bg-stone-900 hover:text-stone-50"
+                      ? "text-[#bef264]"
+                      : "text-neutral-200 hover:text-[#bef264]"
                   }`}
                 >
-                  {item.label}
+                  <span className="text-base font-medium">{item.label}</span>
+                  <span className="font-mono text-xs text-neutral-400">
+                    {item.num}
+                  </span>
                 </Link>
               );
             })}
-            <div className="pt-3">
-              <Link
-                href="/contacto"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex w-full items-center justify-center rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-semibold text-stone-950 transition hover:bg-amber-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
-              >
-                Contactar ahora
-              </Link>
-            </div>
+            <a
+              href={profileData.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between py-3.5 text-sm text-neutral-300 transition-colors hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+            >
+              <span>GitHub</span>
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </nav>
         </div>
       )}

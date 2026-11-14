@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
-import { Github, Linkedin, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { Github, Linkedin, Mail, MapPin, ArrowUpRight, Download } from "lucide-react";
 import { profileData } from "@/data/portfolio";
 import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/FadeIn";
@@ -12,12 +13,11 @@ export const metadata: Metadata = {
 
 /**
  * Página de Contacto (/contacto) — Server Component con formulario interactivo hijo.
- * Incluye enlaces directos a GitHub, LinkedIn y Correo Electrónico + Formulario sin backend.
  */
 export default function ContactPage() {
   const directLinks = [
     {
-      label: "Correo Electrónico",
+      label: "Correo electrónico",
       value: profileData.email,
       href: `mailto:${profileData.email}`,
       icon: Mail,
@@ -25,7 +25,7 @@ export default function ContactPage() {
         "Respuesta rápida para procesos de selección, entrevistas y consultas técnicas.",
     },
     {
-      label: "LinkedIn Profesional",
+      label: "LinkedIn profesional",
       value: profileData.linkedin.replace("https://", ""),
       href: profileData.linkedin,
       icon: Linkedin,
@@ -33,7 +33,7 @@ export default function ContactPage() {
         "Conecta conmigo para revisar mi trayectoria académica y disponibilidad.",
     },
     {
-      label: "GitHub & Repositorios",
+      label: "GitHub & repositorios",
       value: profileData.github.replace("https://", ""),
       href: profileData.github,
       icon: Github,
@@ -46,12 +46,15 @@ export default function ContactPage() {
     <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
       <FadeIn>
         <div className="max-w-3xl">
-          <h1 className="text-balance text-3xl font-extrabold tracking-tight text-stone-50 sm:text-4xl lg:text-5xl">
+          <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+            Contacto
+          </p>
+          <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-neutral-50 sm:text-4xl lg:text-5xl">
             Construyamos algo juntos
           </h1>
-          <p className="mt-4 max-w-[68ch] text-base leading-relaxed text-stone-300 sm:text-lg">
+          <p className="mt-4 max-w-[68ch] text-base leading-relaxed text-neutral-300 sm:text-lg">
             Actualmente busco oportunidades de{" "}
-            <strong className="font-semibold text-stone-50">
+            <strong className="font-semibold text-neutral-50">
               prácticas preprofesionales o empleo Junior como Full Stack Developer
             </strong>
             . Si tienes una vacante o deseas revisar en vivo el código de mis proyectos, estaré encantado de conversar.
@@ -63,27 +66,45 @@ export default function ContactPage() {
         {/* Columna izquierda: Enlaces directos y disponibilidad */}
         <div className="min-w-0 space-y-6 lg:col-span-5">
           <FadeIn delay={60}>
-            <div className="rounded-2xl border border-stone-800 bg-stone-900/80 p-6">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="text-lg font-bold text-stone-50">
-                  Disponible para incorporación
-                </h2>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-300">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                  Activo
-                </span>
+            <figure>
+              <div className="relative overflow-hidden rounded-none border border-white/10 bg-[#0a0a0a]">
+                <Image
+                  src="/images/about-bg.jpg"
+                  alt="Entorno personal de descanso en Lima, Perú"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 460px"
+                  className="object-cover object-center"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-black/60 bg-gradient-to-t from-[#050505]/90 via-black/55 to-black/45"
+                />
+                <div className="relative z-10 flex min-h-[210px] flex-col justify-end p-6">
+                  <div className="flex items-center justify-between gap-2">
+                    <h2 className="text-base font-semibold text-neutral-50">
+                      Disponible para incorporación
+                    </h2>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/70 px-2.5 py-0.5 font-mono text-xs font-medium text-emerald-300">
+                      <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                      Activo
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-neutral-200">
+                    {profileData.academicStatus}
+                  </p>
+                  <div className="mt-4 flex items-center gap-2 text-xs text-neutral-200">
+                    <MapPin className="h-4 w-4 shrink-0 text-[#bef264]" aria-hidden="true" />
+                    <span>{profileData.location}</span>
+                  </div>
+                </div>
               </div>
-              <p className="mt-2 text-sm text-stone-300">
-                {profileData.academicStatus}
-              </p>
-              <div className="mt-4 flex items-center gap-2 text-xs text-stone-300">
-                <MapPin className="h-4 w-4 shrink-0 text-amber-400" />
-                <span>{profileData.location}</span>
-              </div>
-            </div>
+              <figcaption className="mt-3 font-mono text-xs text-neutral-400">
+                Desconectando. Lima, Perú.
+              </figcaption>
+            </figure>
           </FadeIn>
 
-          <div className="space-y-4">
+          <div className="divide-y divide-white/10 border-b border-t border-white/10">
             {directLinks.map((item, idx) => {
               const Icon = item.icon;
               const isExternal = item.href.startsWith("http");
@@ -93,22 +114,25 @@ export default function ContactPage() {
                     href={item.href}
                     target={isExternal ? "_blank" : undefined}
                     rel={isExternal ? "noopener noreferrer" : undefined}
-                    className="group flex items-start gap-4 rounded-2xl border border-stone-800/90 bg-stone-900/50 p-5 transition hover:border-amber-500/40 hover:bg-stone-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                    className="group flex items-start gap-4 py-5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
                   >
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-500/30 bg-amber-500/10 text-amber-400 transition group-hover:bg-amber-500/20">
-                      <Icon className="h-5 w-5" />
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/15 bg-[#0a0a0a] text-[#bef264] transition-colors group-hover:border-[#bef264]/60">
+                      <Icon className="h-4 w-4" aria-hidden="true" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-xs font-semibold text-stone-400">
+                        <span className="font-mono text-xs uppercase tracking-wider text-neutral-400">
                           {item.label}
                         </span>
-                        <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-400 transition group-hover:text-amber-400" />
+                        <ArrowUpRight
+                          className="h-4 w-4 shrink-0 text-neutral-400 transition-colors group-hover:text-[#bef264]"
+                          aria-hidden="true"
+                        />
                       </div>
-                      <p className="mt-0.5 truncate font-mono text-sm font-bold text-stone-50 group-hover:text-amber-300">
+                      <p className="mt-1 truncate font-mono text-sm font-medium text-neutral-50 group-hover:text-[#bef264]">
                         {item.value}
                       </p>
-                      <p className="mt-1 text-xs leading-relaxed text-stone-300">
+                      <p className="mt-1 text-xs leading-relaxed text-neutral-300">
                         {item.description}
                       </p>
                     </div>
@@ -117,6 +141,27 @@ export default function ContactPage() {
               );
             })}
           </div>
+
+          <FadeIn delay={280}>
+            <a
+              href="/cv.pdf"
+              download="CV_Hector_Reyes.pdf"
+              className="group flex items-center justify-between gap-4 border border-[#bef264]/40 bg-[#0a0a0a] px-5 py-4 transition-colors duration-200 hover:border-[#bef264] hover:bg-[#bef264]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+            >
+              <div className="min-w-0">
+                <span className="block font-mono text-xs uppercase tracking-wider text-[#bef264]">
+                  Currículum Vitae
+                </span>
+                <span className="mt-1 block text-sm font-medium text-neutral-100">
+                  Descargar CV
+                </span>
+              </div>
+              <Download
+                className="h-4 w-4 shrink-0 text-[#bef264] transition-transform duration-200 group-hover:translate-y-0.5 motion-reduce:transition-none"
+                aria-hidden="true"
+              />
+            </a>
+          </FadeIn>
         </div>
 
         {/* Columna derecha: Formulario de Contacto */}

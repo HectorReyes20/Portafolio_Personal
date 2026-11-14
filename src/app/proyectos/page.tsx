@@ -13,8 +13,6 @@ export const metadata: Metadata = {
 
 /**
  * Página de listado de proyectos (/proyectos) — Server Component.
- * Presenta los 3 casos de estudio verificados en grilla limpia y resume de forma compacta
- * los módulos en fase de documentación para evitar redundancia visual.
  */
 export default function ProjectsPage() {
   const verifiedProjects = projectsData.filter((project) => project.featured);
@@ -23,11 +21,14 @@ export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <FadeIn>
-        <div className="max-w-3xl border-b border-stone-800/80 pb-7">
-          <h1 className="text-balance text-3xl font-extrabold tracking-tight text-stone-50 sm:text-4xl lg:text-5xl">
-            Casos de Estudio de Ingeniería
+        <div className="max-w-3xl border-b border-white/10 pb-8">
+          <p className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+            Índice de proyectos
+          </p>
+          <h1 className="mt-3 text-balance text-3xl font-semibold tracking-tight text-neutral-50 sm:text-4xl lg:text-5xl">
+            Casos de estudio de ingeniería
           </h1>
-          <p className="mt-3 max-w-[66ch] text-sm leading-relaxed text-stone-300 sm:text-base">
+          <p className="mt-4 max-w-[66ch] text-sm leading-relaxed text-neutral-300 sm:text-base">
             Sistemas desarrollados aplicando arquitectura por capas, control transaccional en bases de datos SQL y reglas de negocio verificables.
           </p>
         </div>
@@ -50,37 +51,37 @@ export default function ProjectsPage() {
 
       {/* Módulo pendiente en formato compacto para no competir con los proyectos reales */}
       {upcomingProjects.length > 0 && (
-        <section className="mt-12 border-t border-stone-800/80 pt-8">
+        <section className="mt-14 border-t border-white/10 pt-8">
           <FadeIn>
-            <h2 className="font-mono text-xs font-semibold uppercase tracking-wider text-orange-300">
-              En Documentación
+            <h2 className="font-mono text-xs uppercase tracking-widest text-orange-300">
+              En documentación
             </h2>
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 divide-y divide-white/10 border-b border-t border-white/10">
               {upcomingProjects.map((project) => (
                 <div
                   key={project.slug}
-                  className="flex flex-col justify-between gap-4 rounded-xl border border-stone-800/80 bg-stone-900/40 p-5 sm:flex-row sm:items-center"
+                  className="flex flex-col justify-between gap-4 py-5 sm:flex-row sm:items-center"
                 >
                   <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="text-base font-bold text-stone-100">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <h3 className="text-base font-semibold text-neutral-100">
                         {project.title}
                       </h3>
-                      <span className="rounded border border-stone-800 bg-stone-950 px-2 py-0.5 font-mono text-[11px] text-stone-400">
+                      <span className="font-mono text-xs text-neutral-400">
                         {project.category}
                       </span>
                     </div>
-                    <p className="mt-1 text-xs leading-relaxed text-stone-300">
+                    <p className="mt-1.5 text-sm leading-relaxed text-neutral-300">
                       {project.shortDescription}
                     </p>
                   </div>
 
                   <Link
                     href={`/proyectos/${project.slug}`}
-                    className="inline-flex shrink-0 items-center gap-1.5 rounded font-mono text-xs font-semibold text-amber-400 transition hover:text-amber-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400"
+                    className="inline-flex shrink-0 items-center gap-1.5 rounded-sm font-mono text-xs font-medium text-[#bef264] transition-colors hover:text-[#d9f99d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
                   >
                     Ver ficha preliminar
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
                   </Link>
                 </div>
               ))}
