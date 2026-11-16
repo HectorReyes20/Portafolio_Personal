@@ -5,7 +5,8 @@ import { Send, CheckCircle2, Mail, Copy, Check, AlertCircle } from "lucide-react
 import { profileData } from "@/data/portfolio";
 
 /**
- * Formulario de contacto sin backend (Client Component).
+ * Formulario de contacto sin backend (Client Component) adaptado a Midnight Teal
+ * con microinteracciones táctiles, blur-bridge en estados de copia y entradas `@starting-style`.
  */
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -97,12 +98,15 @@ export default function ContactForm() {
     setStatus("mailto-opened");
   };
 
+  const inputClass =
+    "w-full rounded-sm border border-line bg-canvas px-4 py-3 text-base text-ink placeholder-muted/60 outline-none transition-[border-color,box-shadow] duration-150 ease-out-strong focus:border-accent focus:ring-2 focus:ring-accent/20 sm:text-sm";
+
   return (
-    <div className="border border-white/10 bg-[#0a0a0a] p-6 sm:p-8">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+    <div className="rounded-sm border border-line bg-surface p-6 sm:p-8">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
         <div>
-          <h2 className="text-xl font-semibold text-neutral-50">Envíame un mensaje</h2>
-          <p className="mt-1 text-sm text-neutral-300">
+          <h2 className="text-xl font-semibold text-ink">Envíame un mensaje</h2>
+          <p className="mt-1 text-sm text-muted">
             Completa el formulario para redactar el correo o copia mi dirección directamente.
           </p>
         </div>
@@ -110,31 +114,39 @@ export default function ContactForm() {
         <button
           type="button"
           onClick={handleCopyEmail}
-          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#050505] px-3.5 py-2 font-mono text-xs font-medium text-[#bef264] transition-colors hover:border-[#bef264]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+          className="ui-press relative inline-flex items-center gap-2 rounded-sm border border-line bg-secondary px-3.5 py-2 font-mono text-xs font-medium text-accent hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          {copiedEmail ? (
-            <>
-              <Check className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
-              ¡Correo copiado!
-            </>
-          ) : (
-            <>
-              <Copy className="h-3.5 w-3.5" aria-hidden="true" />
-              Copiar correo
-            </>
-          )}
+          <span className="relative inline-flex h-3.5 w-3.5 items-center justify-center">
+            <Copy
+              className={`h-3.5 w-3.5 transition-[transform,opacity,filter] duration-150 ease-out-strong ${
+                copiedEmail
+                  ? "scale-75 opacity-0 blur-[1.5px]"
+                  : "scale-100 opacity-100 blur-0"
+              }`}
+              aria-hidden="true"
+            />
+            <Check
+              className={`absolute h-3.5 w-3.5 text-accent transition-[transform,opacity,filter] duration-150 ease-out-strong ${
+                copiedEmail
+                  ? "scale-100 opacity-100 blur-0"
+                  : "scale-75 opacity-0 blur-[1.5px]"
+              }`}
+              aria-hidden="true"
+            />
+          </span>
+          <span>{copiedEmail ? "¡Correo copiado!" : "Copiar correo"}</span>
         </button>
       </div>
 
       {clipboardError && (
         <div
           role="status"
-          className="mb-5 flex items-center gap-2.5 border border-orange-500/30 bg-orange-500/10 p-3.5 text-xs text-orange-200"
+          className="ui-status-banner mb-5 flex items-center gap-2.5 rounded-sm border border-accent bg-secondary p-3.5 text-xs text-ink"
         >
-          <AlertCircle className="h-4 w-4 shrink-0 text-orange-300" aria-hidden="true" />
+          <AlertCircle className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
           <span>
             Tu navegador bloqueó el acceso automático al portapapeles. Puedes seleccionar y copiar manualmente:{" "}
-            <strong className="select-all font-mono font-semibold text-neutral-50">
+            <strong className="select-all font-mono font-semibold text-accent">
               {profileData.email}
             </strong>
           </span>
@@ -146,7 +158,7 @@ export default function ContactForm() {
           <div>
             <label
               htmlFor="name"
-              className="mb-2 block font-mono text-xs uppercase tracking-wider text-neutral-300"
+              className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted"
             >
               Tu nombre / Empresa
             </label>
@@ -160,14 +172,14 @@ export default function ContactForm() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Ej. María Gómez — Tech Recruiter"
-              className="w-full border border-white/15 bg-[#050505] px-4 py-3 text-base text-neutral-50 placeholder-neutral-500 outline-none transition-colors focus:border-[#bef264] focus:ring-2 focus:ring-[#bef264]/20 sm:text-sm"
+              className={inputClass}
             />
           </div>
 
           <div>
             <label
               htmlFor="email"
-              className="mb-2 block font-mono text-xs uppercase tracking-wider text-neutral-300"
+              className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted"
             >
               Tu correo electrónico
             </label>
@@ -181,7 +193,7 @@ export default function ContactForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="nombre@empresa.com"
-              className="w-full border border-white/15 bg-[#050505] px-4 py-3 text-base text-neutral-50 placeholder-neutral-500 outline-none transition-colors focus:border-[#bef264] focus:ring-2 focus:ring-[#bef264]/20 sm:text-sm"
+              className={inputClass}
             />
           </div>
         </div>
@@ -189,7 +201,7 @@ export default function ContactForm() {
         <div>
           <label
             htmlFor="subject"
-            className="mb-2 block font-mono text-xs uppercase tracking-wider text-neutral-300"
+            className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted"
           >
             Asunto
           </label>
@@ -201,14 +213,14 @@ export default function ContactForm() {
             maxLength={180}
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
-            className="w-full border border-white/15 bg-[#050505] px-4 py-3 text-base text-neutral-50 placeholder-neutral-500 outline-none transition-colors focus:border-[#bef264] focus:ring-2 focus:ring-[#bef264]/20 sm:text-sm"
+            className={inputClass}
           />
         </div>
 
         <div>
           <label
             htmlFor="message"
-            className="mb-2 block font-mono text-xs uppercase tracking-wider text-neutral-300"
+            className="mb-2 block font-mono text-xs uppercase tracking-wider text-muted"
           >
             Mensaje
           </label>
@@ -220,8 +232,8 @@ export default function ContactForm() {
             maxLength={2500}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Hola Sebastián, revisamos tus casos de estudio y nos gustaría coordinar una entrevista para..."
-            className="w-full resize-y border border-white/15 bg-[#050505] px-4 py-3 text-base text-neutral-50 placeholder-neutral-500 outline-none transition-colors focus:border-[#bef264] focus:ring-2 focus:ring-[#bef264]/20 sm:text-sm"
+            placeholder="Hola Héctor, revisamos tus casos de estudio y nos gustaría coordinar una entrevista para..."
+            className={`${inputClass} resize-y`}
           />
         </div>
 
@@ -229,9 +241,9 @@ export default function ContactForm() {
           <div
             role="status"
             aria-live="polite"
-            className="flex items-center gap-3 border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-200"
+            className="ui-status-banner flex items-center gap-3 rounded-sm border border-accent bg-secondary p-4 text-sm text-ink"
           >
-            <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" aria-hidden="true" />
+            <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
             <span>¡Mensaje enviado con éxito! Te responderé a la brevedad.</span>
           </div>
         )}
@@ -240,15 +252,15 @@ export default function ContactForm() {
           <div
             role="status"
             aria-live="polite"
-            className="space-y-3 border border-[#bef264]/40 bg-[#bef264]/10 p-4 text-sm text-neutral-200"
+            className="ui-status-banner space-y-3 rounded-sm border border-accent bg-secondary p-4 text-sm text-ink"
           >
             <div className="flex items-start gap-3">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#bef264]" aria-hidden="true" />
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
               <div>
-                <p className="font-semibold text-neutral-50">
+                <p className="font-semibold text-ink">
                   Solicitamos abrir tu aplicación de correo con el mensaje prellenado.
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-neutral-300">
+                <p className="mt-1 text-xs leading-relaxed text-muted">
                   Recuerda presionar &ldquo;Enviar&rdquo; en tu cliente de correo. Si usas Gmail/Outlook en el navegador y no se abrió ninguna ventana, puedes copiar todo el mensaje abajo:
                 </p>
               </div>
@@ -257,19 +269,31 @@ export default function ContactForm() {
               <button
                 type="button"
                 onClick={handleCopyFullPayload}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#bef264]/50 bg-[#050505] px-3.5 py-1.5 font-mono text-xs font-medium text-[#bef264] transition-colors hover:bg-[#bef264] hover:text-[#050505] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                className="ui-press inline-flex items-center gap-1.5 rounded-sm border border-accent bg-surface px-3.5 py-1.5 font-mono text-xs font-medium text-accent hover:bg-accent hover:text-accent-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
-                {copiedFullMessage ? (
-                  <>
-                    <Check className="h-3.5 w-3.5 text-emerald-400" aria-hidden="true" />
-                    ¡Mensaje y destinatario copiados!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-3.5 w-3.5" aria-hidden="true" />
-                    Copiar mensaje completo y correo
-                  </>
-                )}
+                <span className="relative inline-flex h-3.5 w-3.5 items-center justify-center">
+                  <Copy
+                    className={`h-3.5 w-3.5 transition-[transform,opacity,filter] duration-150 ease-out-strong ${
+                      copiedFullMessage
+                        ? "scale-75 opacity-0 blur-[1.5px]"
+                        : "scale-100 opacity-100 blur-0"
+                    }`}
+                    aria-hidden="true"
+                  />
+                  <Check
+                    className={`absolute h-3.5 w-3.5 transition-[transform,opacity,filter] duration-150 ease-out-strong ${
+                      copiedFullMessage
+                        ? "scale-100 opacity-100 blur-0"
+                        : "scale-75 opacity-0 blur-[1.5px]"
+                    }`}
+                    aria-hidden="true"
+                  />
+                </span>
+                <span>
+                  {copiedFullMessage
+                    ? "¡Mensaje y destinatario copiados!"
+                    : "Copiar mensaje completo y correo"}
+                </span>
               </button>
             </div>
           </div>
@@ -278,12 +302,12 @@ export default function ContactForm() {
         {status === "error" && (
           <div
             role="alert"
-            className="border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-200"
+            className="ui-status-banner rounded-sm border border-line bg-secondary p-4 text-sm text-ink"
           >
             Ocurrió un inconveniente al enviar el formulario. Por favor escribe directamente a{" "}
             <a
               href={`mailto:${profileData.email}`}
-              className="font-mono font-semibold text-neutral-50 underline"
+              className="ui-link font-mono font-semibold text-accent underline"
             >
               {profileData.email}
             </a>{" "}
@@ -295,7 +319,7 @@ export default function ContactForm() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-[#bef264] px-6 py-3 text-sm font-semibold text-[#050505] transition-colors hover:bg-[#d9f99d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] disabled:opacity-60"
+            className="ui-press inline-flex items-center justify-center gap-2 rounded-sm border border-accent bg-accent px-6 py-3 text-sm font-semibold text-accent-fg hover:bg-accent-soft hover:text-canvas focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:pointer-events-none disabled:opacity-60"
           >
             <Send className="h-4 w-4 shrink-0" aria-hidden="true" />
             {status === "submitting" ? "Preparando..." : "Redactar en mi correo"}
@@ -303,9 +327,9 @@ export default function ContactForm() {
 
           <a
             href={`mailto:${profileData.email}`}
-            className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-[#050505] px-4 py-3 text-xs font-medium text-neutral-300 transition-colors hover:border-[#bef264]/60 hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+            className="ui-press inline-flex items-center justify-center gap-2 rounded-sm border border-line bg-secondary px-4 py-3 text-xs font-medium text-ink hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
-            <Mail className="h-4 w-4 shrink-0 text-[#bef264]" aria-hidden="true" />
+            <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
             Abrir mailto directo
           </a>
         </div>

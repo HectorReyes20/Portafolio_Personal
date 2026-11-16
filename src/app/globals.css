@@ -2,45 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Paleta Midnight Teal & Curvas de Animación — Modo Claro ---------- */
 :root {
+  color-scheme: light;
+  --bg-canvas: #F4F6F7;
+  --bg-secondary: #E9EFF1;
+  --bg-surface: #FFFFFF;
+  --accent: #167C75;
+  --accent-soft: #D5F0EC;
+  --accent-fg: #FFFFFF;
+  --text-primary: #17212B;
+  --text-secondary: #59636F;
+  --border-color: #D8E0E4;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  caret-color: #167C75;
+}
+
+/* ---------- Paleta Midnight Teal — Modo Oscuro (Predeterminado) ---------- */
+html.dark {
   color-scheme: dark;
-  --bg-canvas: #050505;
-  --bg-surface: #0a0a0a;
-  --bg-code: #0f0f0f;
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --text-primary: #fafafa;
-  --text-secondary: #d4d4d4;
-  --text-muted: #a3a3a3;
-  --accent-primary: #bef264;
-  --accent-soft: #d9f99d;
-  --status-success: #34d399;
-  --status-doc: #fdba74;
-  caret-color: #bef264;
+  --bg-canvas: #0D1015;
+  --bg-secondary: #11151C;
+  --bg-surface: #171B23;
+  --accent: #75CEC5;
+  --accent-soft: #A0E1DA;
+  --accent-fg: #0D1015;
+  --text-primary: #F5F5F5;
+  --text-secondary: #9299A3;
+  --border-color: #303741;
+  caret-color: #75CEC5;
 }
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: #262626 #050505;
+  scrollbar-color: var(--border-color) var(--bg-canvas);
   scrollbar-width: thin;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
+/* Transición coordinada solo al alternar entre Light Mode y Dark Mode */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition-property: background-color, border-color, color, fill, stroke !important;
+  transition-duration: 180ms !important;
+  transition-timing-function: ease !important;
 }
 
 body {
-  background-color: #050505;
-  color: #fafafa;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
   overflow-x: hidden;
   text-underline-offset: 4px;
 }
 
-/* Selección de texto y barra de desplazamiento del sistema tematizadas */
+/* Selección de texto y barra de desplazamiento tematizadas */
 ::selection {
-  background-color: rgba(190, 242, 100, 0.25);
-  color: #ecfccb;
+  background-color: rgba(117, 206, 197, 0.25);
+  color: var(--text-primary);
 }
 
 ::-webkit-scrollbar {
@@ -49,51 +70,154 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: var(--bg-canvas);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: var(--border-color);
   border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #404040;
-}
-/* ---------- Hero: cuadrícula técnica + recorrido de la petición ---------- */
-.hero-grid {
-  position: relative;
-  isolation: isolate;
-}
-.hero-grid::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image:
-    linear-gradient(rgb(41 37 36 / 0.5) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(41 37 36 / 0.5) 1px, transparent 1px);
-  background-size: 48px 48px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, #000 15%, transparent 75%);
-  mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, #000 15%, transparent 75%);
+/* ---------- Microinteracciones de Controles y Superficies (Emil Design Eng) ---------- */
+.ui-press {
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    opacity 160ms var(--ease-out);
 }
 
-@keyframes trace-lit {
-  0%, 30%, 100% { border-color: rgb(41 37 36); box-shadow: none; }
-  6%, 20% {
-    border-color: rgb(245 158 11 / 0.7);
-    box-shadow: 0 0 0 1px rgb(245 158 11 / 0.2), 0 10px 30px -12px rgb(245 158 11 / 0.4);
+.ui-press:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.ui-icon-press {
+  transition:
+    transform 150ms var(--ease-out),
+    background-color 180ms var(--ease-out),
+    border-color 180ms var(--ease-out),
+    color 180ms var(--ease-out);
+}
+
+.ui-icon-press:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.ui-link {
+  transition:
+    color 160ms var(--ease-out),
+    text-decoration-color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out),
+    background-color 160ms var(--ease-out),
+    transform 160ms var(--ease-out);
+}
+
+.ui-link:active {
+  transform: scale(0.98);
+}
+
+.ui-shift {
+  transition:
+    transform 200ms var(--ease-out),
+    color 160ms var(--ease-out),
+    border-color 160ms var(--ease-out),
+    background-color 160ms var(--ease-out);
+}
+
+.ui-card-interactive {
+  transition:
+    transform 220ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    box-shadow 220ms var(--ease-out),
+    background-color 200ms var(--ease-out);
+}
+
+.ui-card-media {
+  transition: transform 280ms var(--ease-out);
+}
+
+/* Hover con transformaciones limitado a dispositivos con puntero fino */
+@media (hover: hover) and (pointer: fine) {
+  .ui-card-interactive:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.28);
+  }
+
+  .ui-card-interactive:hover .ui-card-media {
+    transform: scale(1.015);
+  }
+
+  .group:hover .ui-hover-shift-x {
+    transform: translateX(3px);
+  }
+
+  .group:hover .ui-hover-shift-x-neg {
+    transform: translateX(-3px);
+  }
+
+  .group:hover .ui-hover-shift-y {
+    transform: translateY(2px);
+  }
+
+  .group:hover .ui-hover-scale {
+    transform: scale(1.2);
   }
 }
-@keyframes trace-node-lit {
-  0%, 30%, 100% { background-color: #0c0a09; border-color: #57534e; }
-  6%, 20% { background-color: #f59e0b; border-color: #fbbf24; }
-}
-.trace-layer { animation: trace-lit 7s ease-in-out infinite; }
-.trace-node { animation: trace-node-lit 7s ease-in-out infinite; }
 
-@media (prefers-reduced-motion: reduce) {
-  .trace-layer, .trace-node { animation: none; }
+/* Entrada suave para alertas y estados dinámicos (nunca desde scale(0)) */
+.ui-status-banner {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+@starting-style {
+  .ui-status-banner {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+/* ---------- Recorrido de una petición (ArchitectureTrace) ---------- */
+@keyframes trace-lit {
+  0%,
+  32%,
+  100% {
+    border-color: var(--border-color);
+  }
+  8%,
+  22% {
+    border-color: var(--accent);
+  }
+}
+
+@keyframes trace-node-lit {
+  0%,
+  32%,
+  100% {
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+    transform: scale(1);
+  }
+  8%,
+  22% {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.18);
+  }
+}
+
+.trace-layer {
+  animation: trace-lit 4.8s var(--ease-out) infinite;
+}
+
+.trace-node {
+  animation: trace-node-lit 4.8s var(--ease-out) infinite;
 }
 
 /* ---------- Preloader editorial SR ---------- */
@@ -131,18 +255,49 @@ body {
 }
 
 .sr-preloader-letters {
-  animation: sr-reveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: sr-reveal 0.65s var(--ease-out) forwards;
 }
 
 .sr-preloader-line {
-  animation: sr-line 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  animation: sr-line 0.75s var(--ease-out) 0.1s both;
 }
 
 .sr-preloader-meta {
-  animation: sr-meta 0.5s ease-out 0.25s both;
+  animation: sr-meta 0.5s var(--ease-out) 0.25s both;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition-duration: 0ms !important;
+  }
+
+  .ui-press,
+  .ui-icon-press,
+  .ui-link,
+  .ui-shift,
+  .ui-card-interactive,
+  .ui-card-media,
+  .ui-status-banner {
+    transition:
+      color 150ms ease,
+      background-color 150ms ease,
+      border-color 150ms ease,
+      opacity 150ms ease !important;
+    transform: none !important;
+  }
+
+  .trace-layer,
+  .trace-node {
+    animation: none;
+  }
+
   .sr-preloader-letters,
   .sr-preloader-line,
   .sr-preloader-meta {

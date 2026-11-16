@@ -10,8 +10,8 @@ import {
 } from "@/lib/motion";
 
 /**
- * Transición sutil de entrada entre rutas internas sin interceptar `<Link>` ni alterar el historial.
- * Solo se ejecuta tras haber finalizado el preloader inicial.
+ * Transición sutil y rápida (< 300ms) de entrada entre rutas internas
+ * sin interceptar `<Link>` ni alterar el historial.
  */
 export default function Template({ children }: { children: React.ReactNode }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -25,9 +25,9 @@ export default function Template({ children }: { children: React.ReactNode }) {
 
       gsap.from(wrapperRef.current, {
         opacity: 0,
-        y: 10,
-        duration: 0.32,
-        ease: "power2.out",
+        y: 6,
+        duration: 0.22,
+        ease: "power3.out",
         clearProps: "transform,opacity",
       });
     },

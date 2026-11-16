@@ -26,7 +26,7 @@ export default function LimaClock() {
   }, []);
 
   return (
-    <span className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+    <span className="font-mono text-xs uppercase tracking-widest text-muted">
       Perú — Lima{time ? ` · ${time}` : ""}
     </span>
   );

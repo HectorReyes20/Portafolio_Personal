@@ -10,7 +10,8 @@ interface FadeInProps {
 
 /**
  * Componente Client para animaciones sutiles de aparición al hacer scroll.
- * Respeta `prefers-reduced-motion: reduce` mostrando el contenido de forma inmediata.
+ * Utiliza `--ease-out` (cubic-bezier(0.23, 1, 0.32, 1)), recorrido corto (12px)
+ * y escala inicial sutil (0.99) siguiendo la filosofía de Emil Kowalski.
  */
 export default function FadeIn({
   children,
@@ -41,8 +42,8 @@ export default function FadeIn({
         }
       },
       {
-        threshold: 0.12,
-        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.1,
+        rootMargin: "0px 0px -32px 0px",
       }
     );
 
@@ -57,10 +58,10 @@ export default function FadeIn({
     <div
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`transition-[opacity,transform] duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none ${
+      className={`transition-[opacity,transform] duration-[420ms] ease-out-strong motion-reduce:translate-y-0 motion-reduce:scale-100 motion-reduce:opacity-100 motion-reduce:transition-none ${
         isVisible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-6 will-change-transform"
+          ? "translate-y-0 scale-100 opacity-100"
+          : "translate-y-3 scale-[0.99] opacity-0 will-change-transform"
       } ${className}`}
     >
       {children}

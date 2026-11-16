@@ -4,7 +4,7 @@ import { ArrowUpRight, Download } from "lucide-react";
 import { profileData } from "@/data/portfolio";
 
 const LINK_CLASS =
-  "rounded-sm py-0.5 text-neutral-300 transition-colors hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]";
+  "ui-link rounded-sm py-0.5 text-muted hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent";
 
 const SITE_LINKS = [
   { href: "/", label: "Inicio" },
@@ -14,18 +14,20 @@ const SITE_LINKS = [
 ];
 
 /**
- * Footer editorial minimalista de 3 columnas (Sitio, Perfiles, Correo).
+ * Footer editorial minimalista de 3 columnas (Sitio, Perfiles, Correo) en paleta Midnight Teal.
  */
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/10 bg-[#050505] text-neutral-300">
+    <footer className="border-t border-line bg-secondary text-muted">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           {/* Columna 1: Sitio */}
           <div>
-            <p className="text-sm font-semibold text-neutral-50">Sitio</p>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+              01 // Sitio
+            </p>
             <nav
               aria-label="Pie de página"
               className="mt-4 flex flex-col items-start gap-2.5 text-sm"
@@ -40,7 +42,9 @@ export default function Footer() {
 
           {/* Columna 2: Perfiles */}
           <div>
-            <p className="text-sm font-semibold text-neutral-50">Perfiles</p>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+              02 // Perfiles
+            </p>
             <div className="mt-4 flex flex-col items-start gap-2.5 text-sm">
               <a
                 href={profileData.github}
@@ -62,7 +66,7 @@ export default function Footer() {
               </a>
               <a
                 href="/cv.pdf"
-                download
+                download="CV_Hector_Reyes.pdf"
                 className={`inline-flex items-center gap-1 ${LINK_CLASS}`}
               >
                 Descargar CV
@@ -73,18 +77,20 @@ export default function Footer() {
 
           {/* Columna 3: Correo */}
           <div>
-            <p className="text-sm font-semibold text-neutral-50">Correo</p>
+            <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-ink">
+              03 // Contacto directo
+            </p>
             <div className="mt-4 flex flex-col items-start gap-2 text-sm">
               <a
                 href={`mailto:${profileData.email}`}
-                className="break-all rounded-sm py-0.5 text-neutral-200 underline decoration-white/25 underline-offset-4 transition-colors hover:text-[#bef264] hover:decoration-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                className="break-all rounded-sm py-0.5 text-ink underline decoration-line underline-offset-4 transition-colors hover:text-accent hover:decoration-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 {profileData.email}
               </a>
-              <p className="text-xs leading-relaxed text-neutral-400">
+              <p className="text-xs leading-relaxed text-muted">
                 Lima, Perú
               </p>
-              <p className="text-xs leading-relaxed text-neutral-400">
+              <p className="text-xs leading-relaxed text-muted">
                 Ingeniería de Sistemas e Informática
               </p>
             </div>
@@ -92,11 +98,11 @@ export default function Footer() {
         </div>
 
         {/* Línea inferior */}
-        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 text-xs text-neutral-400 sm:flex-row sm:items-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-line pt-6 font-mono text-xs text-muted sm:flex-row sm:items-center">
           <p>
             © {currentYear} {profileData.name}
           </p>
-          <p>Hecho con Next.js, TypeScript y Tailwind CSS</p>
+          <p>MIDNIGHT TEAL // Next.js · TypeScript · Tailwind CSS</p>
         </div>
       </div>
     </footer>

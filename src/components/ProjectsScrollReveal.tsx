@@ -12,7 +12,7 @@ interface ProjectsScrollRevealProps {
 
 /**
  * Anima secuencialmente la aparición del número y título de cada fila de proyecto
- * mediante GSAP + ScrollTrigger (y: 50 -> 0, opacity: 0 -> 1, once: true).
+ * mediante GSAP + ScrollTrigger con recorrido contenido (y: 18 -> 0) y stagger ágil (60ms).
  */
 export default function ProjectsScrollReveal({
   children,
@@ -35,17 +35,17 @@ export default function ProjectsScrollReveal({
 
         gsap.fromTo(
           targets,
-          { y: 50, opacity: 0 },
+          { y: 18, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.7,
-            stagger: 0.1,
+            duration: 0.45,
+            stagger: 0.06,
             ease: "power3.out",
             clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: row,
-              start: "top 86%",
+              start: "top 88%",
               once: true,
             },
           }

@@ -70,22 +70,27 @@ export const metadata: Metadata = {
   },
 };
 
+const THEME_INIT_SCRIPT = `(function(){try{var s=localStorage.getItem("theme");var t=(s==="light"||s==="dark")?s:(window.matchMedia&&window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");var d=document.documentElement;if(t==="dark"){d.classList.add("dark");d.style.colorScheme="dark";}else{d.classList.remove("dark");d.style.colorScheme="light";}}catch(e){document.documentElement.classList.add("dark");}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark">
+    <html lang="es" className="dark" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body
-        className={`${archivo.variable} ${jetbrainsMono.variable} font-sans min-h-screen flex flex-col bg-[#050505] text-neutral-50 antialiased selection:bg-[#bef264]/25 selection:text-lime-100`}
+        className={`${archivo.variable} ${jetbrainsMono.variable} font-sans min-h-screen flex flex-col bg-canvas text-ink antialiased`}
       >
         <EditorialPreloader />
 
         {/* Enlace de accesibilidad para saltar al contenido principal con teclado */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[#bef264] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[#050505] focus:outline-none focus:ring-2 focus:ring-[#bef264]"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-accent-fg focus:outline-none focus:ring-2 focus:ring-accent"
         >
           Saltar al contenido principal
         </a>

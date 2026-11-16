@@ -8,13 +8,30 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
-  Github,
   Lock,
 } from "lucide-react";
 import { projectsData } from "@/data/portfolio";
 import FadeIn from "@/components/FadeIn";
 import StackByLayer from "@/components/StackByLayer";
 import { isValidHttpUrl } from "@/lib/urls";
+
+function GithubIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
 
 interface ProjectDetailPageProps {
   params: {
@@ -33,13 +50,10 @@ function renderHighlightedTechnicalText(text: string): React.ReactNode[] {
   const parts = text.split(TECHNICAL_TERMS_REGEX);
   return parts.map((part, index) => {
     if (index % 2 === 1) {
-      const isMetric = /ROC-AUC|accuracy/i.test(part);
       return (
         <code
           key={index}
-          className={`border border-white/15 bg-[#0f0f0f] px-1.5 py-0.5 font-mono text-[12px] font-medium ${
-            isMetric ? "text-emerald-400" : "text-[#bef264]"
-          }`}
+          className="rounded-[2px] border border-line bg-secondary px-1.5 py-0.5 font-mono text-[12px] font-medium text-accent"
         >
           {part}
         </code>
@@ -142,30 +156,30 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <FadeIn>
         <Link
           href="/proyectos"
-          className="inline-flex items-center gap-2 rounded-sm font-mono text-xs text-neutral-300 transition-colors hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+          className="ui-link group inline-flex items-center gap-2 rounded-sm font-mono text-xs text-muted hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
         >
-          <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+          <ArrowLeft className="ui-shift ui-hover-shift-x-neg h-4 w-4" aria-hidden="true" />
           Volver al índice de proyectos
         </Link>
 
         {/* Encabezado del caso de estudio adaptable a 375px */}
-        <div className="mt-6 flex flex-col justify-between gap-6 border-b border-white/10 pb-8 lg:flex-row lg:items-end">
+        <div className="mt-6 flex flex-col justify-between gap-6 border-b border-line pb-8 lg:flex-row lg:items-end">
           <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-neutral-400">
+            <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-muted">
               {!project.featured && (
-                <span className="border border-orange-400/40 bg-orange-400/10 px-2 py-0.5 font-semibold text-orange-300">
+                <span className="border border-accent bg-secondary px-2 py-0.5 font-semibold text-accent">
                   EN DOCUMENTACIÓN
                 </span>
               )}
-              <span>{project.category}</span>
+              <span className="text-accent">{project.category}</span>
               <span>·</span>
               <span className="tabular-nums">Año {project.year}</span>
             </div>
 
-            <h1 className="mt-3 text-balance text-2xl font-semibold tracking-tight text-neutral-50 sm:text-4xl lg:text-5xl">
+            <h1 className="mt-3 text-balance text-2xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl">
               {project.title}
             </h1>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-neutral-300 sm:text-base">
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted sm:text-base">
               {project.shortDescription}
             </p>
           </div>
@@ -177,15 +191,15 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 href={repoValue}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-[#0a0a0a] px-5 py-2.5 text-sm font-medium text-neutral-100 transition-colors hover:border-[#bef264]/60 hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                className="ui-press inline-flex items-center justify-center gap-2 rounded-sm border border-line bg-surface px-5 py-2.5 text-sm font-medium text-ink hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
-                <Github className="h-4 w-4 shrink-0" aria-hidden="true" />
+                <GithubIcon className="h-4 w-4 shrink-0" />
                 Ver código en GitHub
               </a>
             ) : (
               repoValue && (
-                <div className="inline-flex max-w-full items-center gap-2 border border-white/10 bg-[#0a0a0a] px-3.5 py-2 font-mono text-xs leading-snug text-neutral-300">
-                  <Lock className="h-3.5 w-3.5 shrink-0 text-neutral-400" aria-hidden="true" />
+                <div className="inline-flex max-w-full items-center gap-2 rounded-sm border border-line bg-surface px-3.5 py-2 font-mono text-xs leading-snug text-muted">
+                  <Lock className="h-3.5 w-3.5 shrink-0 text-muted" aria-hidden="true" />
                   <span className="break-words">{repoValue}</span>
                 </div>
               )
@@ -196,7 +210,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#bef264] px-5 py-2.5 text-sm font-semibold text-[#050505] transition-colors hover:bg-[#d9f99d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                className="ui-press inline-flex items-center justify-center gap-2 rounded-sm border border-accent bg-accent px-5 py-2.5 text-sm font-semibold text-accent-fg hover:bg-accent-soft hover:text-canvas focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
               >
                 <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
                 Ver demo en vivo
@@ -209,7 +223,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Captura o diagrama arquitectónico principal optimizado con next/image */}
       <FadeIn delay={60}>
         {project.slug === "axioma" ? (
-          <div className="relative mt-8 w-full overflow-hidden border border-white/10 bg-[#0a0a0a]">
+          <div className="relative mt-8 w-full overflow-hidden rounded-sm border border-line bg-secondary p-2 sm:p-3">
             <Image
               src={project.image}
               alt={`Captura principal del sistema ${project.title}`}
@@ -222,7 +236,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
             />
           </div>
         ) : (
-          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#0a0a0a]">
+          <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-sm border border-line bg-secondary">
             <Image
               src={project.image}
               alt={`Diagrama de arquitectura del proyecto ${project.title}`}
@@ -241,10 +255,10 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
           {/* 1. Contexto y Arquitectura */}
           <FadeIn delay={100}>
             <section>
-              <h2 className="text-xl font-semibold tracking-tight text-neutral-50 sm:text-2xl">
+              <h2 className="text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 Contexto y arquitectura del sistema
               </h2>
-              <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-neutral-300 sm:text-base">
+              <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-muted sm:text-base">
                 {project.longDescription}
               </p>
             </section>
@@ -252,11 +266,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* 2. Mi Rol y Aporte */}
           <FadeIn delay={140}>
-            <section className="border-t border-white/10 pt-8">
-              <h2 className="text-xl font-semibold tracking-tight text-neutral-50 sm:text-2xl">
+            <section className="border-t border-line pt-8">
+              <h2 className="text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 Mi rol y responsabilidades
               </h2>
-              <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-neutral-300 sm:text-base">
+              <p className="mt-3 max-w-[70ch] text-sm leading-relaxed text-muted sm:text-base">
                 {project.myRole}
               </p>
             </section>
@@ -264,11 +278,11 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
 
           {/* 3. Retos Técnicos y Soluciones */}
           <FadeIn delay={180}>
-            <section className="border-t border-white/10 pt-8">
-              <h2 className="text-xl font-semibold tracking-tight text-neutral-50 sm:text-2xl">
+            <section className="border-t border-line pt-8">
+              <h2 className="text-xl font-semibold tracking-tight text-ink sm:text-2xl">
                 Retos técnicos y decisiones de ingeniería
               </h2>
-              <div className="mt-6 divide-y divide-white/10 border-b border-t border-white/10">
+              <div className="mt-6 divide-y divide-line border-b border-t border-line">
                 {project.technicalChallenges.map((challenge, idx) => {
                   const colonIdx = challenge.indexOf(":");
                   const hasLeadTitle = colonIdx > 0 && colonIdx < 80;
@@ -282,14 +296,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   return (
                     <article key={idx} className="py-6">
                       <div className="flex items-baseline gap-3">
-                        <span className="font-mono text-xs font-medium tabular-nums text-[#bef264]">
+                        <span className="font-mono text-xs font-semibold tabular-nums text-accent">
                           0{idx + 1}
                         </span>
-                        <h3 className="text-base font-semibold text-neutral-50">
+                        <h3 className="text-base font-semibold text-ink">
                           {leadTitle}
                         </h3>
                       </div>
-                      <p className="mt-3 pl-7 text-sm leading-relaxed text-neutral-300">
+                      <p className="mt-3 pl-7 text-sm leading-relaxed text-muted">
                         {renderHighlightedTechnicalText(bodyText)}
                       </p>
                     </article>
@@ -303,9 +317,9 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
         {/* Columna Lateral: Hitos Verificados, Stack Completo y Acceso */}
         <div className="min-w-0 lg:col-span-4">
           <FadeIn delay={120}>
-            <aside className="sticky top-24 space-y-6 border border-white/10 bg-[#0a0a0a] p-5 sm:p-6">
+            <aside className="sticky top-24 space-y-6 rounded-sm border border-line bg-surface p-5 sm:p-6">
               <div>
-                <h2 className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+                <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                   Stack ({project.stack.length})
                 </h2>
                 <div className="mt-3">
@@ -313,18 +327,18 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </div>
               </div>
 
-              <div className="border-t border-white/10 pt-5">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+              <div className="border-t border-line pt-5">
+                <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                   Puntos clave
                 </h3>
                 <ul className="mt-3 space-y-2.5">
                   {project.highlights.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2 text-xs leading-relaxed text-neutral-300"
+                      className="flex items-start gap-2 text-xs leading-relaxed text-muted"
                     >
                       <CheckCircle2
-                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#bef264]"
+                        className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent"
                         aria-hidden="true"
                       />
                       <span>{item}</span>
@@ -333,8 +347,8 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                 </ul>
               </div>
 
-              <div className="border-t border-white/10 pt-5">
-                <h3 className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+              <div className="border-t border-line pt-5">
+                <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
                   Repositorio y demo
                 </h3>
                 <div className="mt-3 flex flex-col gap-2.5">
@@ -343,27 +357,27 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       href={repoValue}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-between border border-white/15 bg-[#050505] px-4 py-3 text-xs font-medium text-neutral-200 transition-colors hover:border-[#bef264]/60 hover:text-[#bef264] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                      className="ui-press flex items-center justify-between rounded-sm border border-line bg-secondary px-4 py-3 text-xs font-medium text-ink hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     >
                       <span className="flex items-center gap-2 font-mono">
-                        <Github className="h-4 w-4 shrink-0 text-[#bef264]" aria-hidden="true" />
+                        <GithubIcon className="h-4 w-4 shrink-0 text-accent" />
                         Repositorio en GitHub
                       </span>
-                      <ExternalLink className="h-3.5 w-3.5 shrink-0 text-neutral-400" aria-hidden="true" />
+                      <ExternalLink className="h-3.5 w-3.5 shrink-0 text-muted" aria-hidden="true" />
                     </a>
                   ) : (
                     repoValue && (
-                      <div className="border border-white/10 bg-[#050505] p-4 text-xs leading-relaxed text-neutral-300">
-                        <div className="flex items-start gap-2 font-mono font-medium text-neutral-100">
-                          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-neutral-400" aria-hidden="true" />
+                      <div className="rounded-sm border border-line bg-secondary p-4 text-xs leading-relaxed text-muted">
+                        <div className="flex items-start gap-2 font-mono font-medium text-ink">
+                          <Lock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-accent" aria-hidden="true" />
                           <span className="break-words">{repoValue}</span>
                         </div>
-                        <p className="mt-2 text-neutral-300">
+                        <p className="mt-2 text-muted">
                           Código fuente y arquitectura disponibles para demostración en vivo durante entrevista técnica.
                         </p>
                         <Link
                           href="/contacto"
-                          className="mt-3 inline-flex items-center gap-1.5 rounded-sm font-medium text-[#bef264] transition-colors hover:text-[#d9f99d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                          className="ui-link mt-3 inline-flex items-center gap-1.5 rounded-sm font-semibold text-accent hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                         >
                           Solicitar revisión en entrevista
                           <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
@@ -377,7 +391,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-between border border-[#bef264]/50 bg-[#bef264]/10 px-4 py-3 font-mono text-xs font-medium text-[#bef264] transition-colors hover:bg-[#bef264] hover:text-[#050505] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+                      className="ui-press flex items-center justify-between rounded-sm border border-accent bg-accent px-4 py-3 font-mono text-xs font-semibold text-accent-fg hover:bg-accent-soft hover:text-canvas focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                     >
                       <span className="flex items-center gap-2">
                         <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
@@ -396,12 +410,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       {/* Galería de capturas reales exclusiva de Axioma */}
       {project.slug === "axioma" && (
         <FadeIn delay={180}>
-          <section className="mt-14 border-t border-white/10 pt-10">
+          <section className="mt-14 border-t border-line pt-10">
             <div className="flex items-baseline justify-between gap-4">
-              <h2 className="font-mono text-xs uppercase tracking-widest text-neutral-400">
+              <h2 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">
                 Capturas del sistema
               </h2>
-              <span className="font-mono text-xs text-[#bef264]">03 vistas</span>
+              <span className="font-mono text-xs font-semibold text-accent">
+                03 vistas
+              </span>
             </div>
 
             <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
@@ -411,7 +427,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                   className={shot.spanFull ? "md:col-span-2" : ""}
                 >
                   {shot.spanFull ? (
-                    <div className="relative w-full overflow-hidden rounded-none border border-white/10 bg-[#050505] transition-colors duration-200 hover:border-[#bef264]/40">
+                    <div className="relative w-full overflow-hidden rounded-sm border border-line bg-secondary p-2 transition-colors duration-200 hover:border-accent">
                       <Image
                         src={shot.src}
                         alt={shot.alt}
@@ -423,7 +439,7 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       />
                     </div>
                   ) : (
-                    <div className="relative aspect-video w-full overflow-hidden rounded-none border border-white/10 bg-[#050505] transition-colors duration-200 hover:border-[#bef264]/40">
+                    <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-line bg-secondary p-2 transition-colors duration-200 hover:border-accent">
                       <Image
                         src={shot.src}
                         alt={shot.alt}
@@ -434,14 +450,14 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
                       />
                     </div>
                   )}
-                  <figcaption className="mt-2.5 border-t border-neutral-800 pt-2 font-mono text-xs text-neutral-400">
+                  <figcaption className="mt-2.5 border-t border-line pt-2 font-mono text-xs text-muted">
                     {shot.caption}
                   </figcaption>
                 </figure>
               ))}
             </div>
 
-            <p className="mt-6 font-mono text-xs leading-relaxed text-neutral-400">
+            <p className="mt-6 font-mono text-xs leading-relaxed text-muted">
               Nota: Para probar la demo en vivo, utiliza los botones de acceso rápido (Admin, Recepción, Psicólogo, Paciente) en la pantalla de inicio de sesión.
             </p>
           </section>
@@ -452,43 +468,43 @@ export default function ProjectDetailPage({ params }: ProjectDetailPageProps) {
       <FadeIn delay={200}>
         <nav
           aria-label="Navegación entre casos de estudio"
-          className="mt-14 border-t border-white/10 pt-8"
+          className="mt-14 border-t border-line pt-8"
         >
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Link
               href={`/proyectos/${prevProject.slug}`}
-              className="group flex flex-col justify-between border border-white/10 bg-[#0a0a0a] p-5 transition-colors hover:border-[#bef264]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264]"
+              className="ui-card-interactive group flex flex-col justify-between rounded-sm border border-line bg-surface p-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
-              <span className="inline-flex items-center gap-1.5 font-mono text-xs text-neutral-400 group-hover:text-[#bef264]">
+              <span className="ui-link inline-flex items-center gap-1.5 font-mono text-xs text-muted group-hover:text-accent">
                 <ArrowLeft
-                  className="h-3.5 w-3.5 transition-transform duration-200 group-hover:-translate-x-1 motion-reduce:transition-none"
+                  className="ui-shift ui-hover-shift-x-neg h-3.5 w-3.5"
                   aria-hidden="true"
                 />
                 Anterior · {prevProject.category}
               </span>
-              <span className="mt-2 text-base font-semibold text-neutral-50 group-hover:text-[#bef264]">
+              <span className="ui-link mt-2 text-base font-semibold text-ink group-hover:text-accent">
                 {prevProject.title}
               </span>
-              <span className="mt-1 line-clamp-1 text-xs text-neutral-400">
+              <span className="mt-1 line-clamp-1 text-xs text-muted">
                 {prevProject.shortDescription}
               </span>
             </Link>
 
             <Link
               href={`/proyectos/${nextProject.slug}`}
-              className="group flex flex-col items-start justify-between border border-white/10 bg-[#0a0a0a] p-5 text-left transition-colors hover:border-[#bef264]/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#bef264] sm:items-end sm:text-right"
+              className="ui-card-interactive group flex flex-col items-start justify-between rounded-sm border border-line bg-surface p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:items-end sm:text-right"
             >
-              <span className="inline-flex items-center gap-1.5 font-mono text-xs text-neutral-400 group-hover:text-[#bef264]">
+              <span className="ui-link inline-flex items-center gap-1.5 font-mono text-xs text-muted group-hover:text-accent">
                 Siguiente · {nextProject.category}
                 <ArrowRight
-                  className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
+                  className="ui-shift ui-hover-shift-x h-3.5 w-3.5"
                   aria-hidden="true"
                 />
               </span>
-              <span className="mt-2 text-base font-semibold text-neutral-50 group-hover:text-[#bef264]">
+              <span className="ui-link mt-2 text-base font-semibold text-ink group-hover:text-accent">
                 {nextProject.title}
               </span>
-              <span className="mt-1 line-clamp-1 text-xs text-neutral-400">
+              <span className="mt-1 line-clamp-1 text-xs text-muted">
                 {nextProject.shortDescription}
               </span>
             </Link>
